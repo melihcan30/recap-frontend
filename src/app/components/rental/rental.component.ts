@@ -25,5 +25,4 @@ export class RentalComponent implements OnInit {
       console.log(this.rentals);
     })
   }
-
 }
