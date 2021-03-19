@@ -1,15 +1,15 @@
-<div class="container-fluid">
-  <app-nav></app-nav>
-    <div class="row">
-      <div class="col-md-3">
-        <div class="sticky-top sidebar">
-          <div class="box"><app-brand></app-brand></div>
-          <div class="box"><app-color></app-color></div>
-        </div>
-      </div>  
-      <div class="col-md-9 ">
-        <div class="body"><router-outlet></router-outlet></div>
-      </div>
-    </div>    
-  <app-footer></app-footer>
+<div class="container"> 
+  <app-navi></app-navi>
+  <div class="row">
+    <div class="col-md-3">
+      <app-brand-category></app-brand-category>
+      <app-color></app-color>
+    </div>
+    <div class="col-md-9">
+      <router-outlet></router-outlet>
+    </div>
+
+
+  </div>
+
 </div>

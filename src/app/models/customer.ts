@@ -1,4 +1,6 @@
 export interface Customer {
-    id: number;
-    companyName: string;
+  customerId:Number
+  companyName:String
+  firstName:String
+  lastName:String
   }

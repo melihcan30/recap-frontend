@@ -1,0 +1,13 @@
+.container {
+    border: 2px rgb(221, 11, 11) solid;
+    display: table;
+    margin: 0px auto;
+  }
+  #sonuc {
+    background-color:#bea1b5;
+  }
+  .sinif {
+    border: 2px rgb(3, 95, 3) solid;
+    border-radius: 4px;
+    text-align:center;
+  }

@@ -1,20 +1,8 @@
-<div
-  *ngIf="dataLoaded == false"
-  class="spinner-border text-info m-2"
-  role="status"
-></div>
-<ul *ngIf="dataLoaded == true" 
-class="list-group list-group-flush m-4">
-  <li class="list-group-item disabled p-3" 
-  style="background-color: lightblue; border-radius: 10px">
-    Colors
-  </li>
-  <li
-    (click)="setCurrentColor(color)"
-    routerLink = "/cars/color/{{color.colorId}}"
-    *ngFor="let color of colors"
-    [class]="getColorClass(color)"
-  >
-    {{ color.name }}
-  </li>
-</ul>
+<div style="margin-top:36px" class="mb-3">
+  <input type="text" [(ngModel)]="filterColorText" class="form-control" id="filterColorText" 
+  placeholder="Renk giriniz">
+</div>
+<select [(ngModel)]="currentColor" class="form-select" (change)="setQueryParams(currentColor)" aria-label="Default select example">
+  <option [selected]="isAllColorSelected()" [ngValue]=undefined>Tüm renkler</option>
+  <option [selected]="isCurrentColor(color)" *ngFor="let color of colors | filterColorPipe:filterColorText; index as i" [ngValue]="color">{{color.colorName}}</option>
+</select>

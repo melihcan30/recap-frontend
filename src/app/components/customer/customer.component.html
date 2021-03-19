@@ -1,16 +1,21 @@
-<div *ngIf="dataLoaded==false" class="spinner-border text-info" role="status">
-</div>
-<table *ngIf="dataLoaded==true" class="table table-striped m-4">
-    <thead>
-      <tr>
-        <th scope="col">#</th>
-        <th scope="col">companyName</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr *ngFor="let customer of customers">
-        <th scope="row">{{customer.id}}</th>
-        <td>{{customer.companyName}}</td>
-      </tr>
-    </tbody>
-  </table>
+<div class="alert alert-info" role="alert">
+  <h2>Musteriler</h2> 
+ </div>
+
+  <div *ngIf="dataLoaded==false"  class="spinner-border text-success" role="status">
+    <span class="visually-hidden">Loading...</span>
+  </div>
+<table *ngIf="dataLoaded==true" class="table">
+  <thead>
+    <tr>
+      <th>Müşteri Numarası</th>
+      <th>Müşteri</th>
+      <th>Şirket</th>
+    </tr>
+  </thead>
+  <tr *ngFor="let customer of customers">
+    <td>{{customer.customerId}}</td>
+    <td>{{customer.firstName + " "+ customer.lastName}}</td>
+    <td>{{customer.companyName}}</td>
+  </tr>
+</table>

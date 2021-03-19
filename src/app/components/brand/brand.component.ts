@@ -1,44 +1,27 @@
 import { Component, OnInit } from '@angular/core';
-import { Brand } from 'src/app/models/brand';
-import { BrandService } from 'src/app/services/brand.service';
+import { Brand } from '../../models/brand';
+import { BrandService } from '../../services/brand.service';
 
 @Component({
   selector: 'app-brand',
   templateUrl: './brand.component.html',
-  styleUrls: ['./brand.component.css']
+  styleUrls: ['./brand.component.css'],
+  providers: [BrandService],
 })
-
 export class BrandComponent implements OnInit {
-  brands: Brand[] = [];
-  currentBrand:Brand={ brandId:0 , name:"" };
+  constructor(private brandService: BrandService) {}
+ 
+  brands: Brand[];
+ 
   dataLoaded = false;
-
-  constructor(private brandService: BrandService) { }
-
   ngOnInit(): void {
     this.getBrands();
   }
 
-  getBrands(){
-    this.brandService.getBrands().subscribe(response => {
+  getBrands(): void {
+    this.brandService.getBrand().subscribe((response) => {
       this.brands = response.data;
       this.dataLoaded = true;
-    })
-  }
-
-  setCurrentBrand(brand:Brand){
-    this.currentBrand=brand;
-  }
-
-  getBrandClass(brand:Brand){
-    if(brand == this.currentBrand){
-      return "list-group-item active"
-    }else{
-      return "list-group-item "
-    }
-  }
-
-  removeCurrentBrand(){
-    this.currentBrand = { brandId:0, name:"" };
+    });
   }
 }

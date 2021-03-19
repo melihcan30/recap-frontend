@@ -1,43 +1,35 @@
-<nav class="navbar navbar-expand-lg navbar-light" style="background-color:rgb(218, 240, 240)">
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
   <div class="container-fluid">
-    <a class="navbar-brand p-2" style="background-color:darkseagreen; color:rgb(2, 75, 2); border-radius: 8px;" href="#">ReCap</a>
+    <a class="navbar-brand" href="#">ReCap</a>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
-    <div class="collapse navbar-collapse m-2" id="navbarSupportedContent">
-      <ul class="navbar-nav me-auto ms-5 mb-lg-0 ">
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
         <li class="nav-item">
-          <a class="nav-link active " aria-current="page" href="#">Home</a>
+          <a class="nav-link active" aria-current="page" href="#">Ana Sayfa</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="#">About</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="#">Contact</a>
+          <a class="nav-link" href="#">Link</a>
         </li>
         <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-            All of Them
+            Dropdown
           </a>
           <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-            <li><a class="dropdown-item" href="#">Cars</a></li>
-            <li><a class="dropdown-item" href="#">Customers</a></li>
+            <li><a class="dropdown-item" href="#">Action</a></li>
+            <li><a class="dropdown-item" href="#">Another action</a></li>
             <li><hr class="dropdown-divider"></li>
-            <li><a class="dropdown-item" href="#">Brands</a></li>
-            <li><a class="dropdown-item" href="#">Colors</a></li>
-            <li><a class="dropdown-item" href="#">Rentals</a></li>
+            <li><a class="dropdown-item" href="#">Something else here</a></li>
           </ul>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
         </li>
       </ul>
       <form class="d-flex">
-        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-        <button class="btn btn-outline-warning" type="submit">Search</button>
-        <div class="d-flex btn-group ps-4" role="group" aria-label="Basic radio toggle button group">
-          <input type="radio" class="btn-check" name="btnradio" id="btnradio1" autocomplete="off">
-          <label class="btn btn-outline-info" for="btnradio1">Login</label>
-          <input type="radio" class="btn-check" name="btnradio" id="btnradio2" autocomplete="off">
-          <label class="btn btn-outline-success" for="btnradio2">Register</label>
-        </div>
+        <input class="form-control me-2" type="search" placeholder="Aramak istediğiniz kelimeyi yazınız." aria-label="Search">
+        <button class="btn btn-outline-success" type="submit">Ara</button>
       </form>
     </div>
   </div>

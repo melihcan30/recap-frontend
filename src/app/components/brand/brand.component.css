@@ -1,0 +1,10 @@
+table, th, td {
+    border: 1px solid rgb(58, 10, 10);
+}
+th {
+    background-color: rgb(83, 219, 190);
+    color: white;
+}
+h2{
+    margin-left: 41%;
+}

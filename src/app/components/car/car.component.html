@@ -1,26 +1,33 @@
-<div
-  *ngIf="dataLoaded == false"
-  class="spinner-border text-info m-4"
-  role="status"
-></div>
+<h4>ARABALAR</h4>
+<div *ngIf="dataLoaded==false" class="spinner-border" role="status">
+  <span class="visually-hidden">Loading...</span>
+</div>
 
-<table *ngIf="dataLoaded == true" class="table m-4">
-  <thead>
-    <tr>
-      <th scope="col" style="background-color: rgb(174, 204, 214); border-radius: 10px">Brand</th>
-      <th scope="col" style="background-color: rgb(148, 199, 218); border-radius: 10px">Color</th>
-      <th scope="col" style="background-color: rgb(146, 214, 236); border-radius: 10px">Model Year</th>
-      <th scope="col" style="background-color: rgb(116, 207, 238); border-radius: 10px">Daily Price</th>
-      <th scope="col" style="background-color: rgb(60, 200, 247); border-radius: 10px">Description</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr *ngFor="let car of cars">
-      <td>{{ car.brandName }}</td>
-      <td>{{ car.colorName}}</td>
-      <td>{{ car.modelYear }}</td>
-      <td>{{ car.dailyPrice }}</td>
-      <td>{{ car.description }}</td>
-    </tr>
-  </tbody>
-</table>
+<div class="mb-3">
+  <label for="filterText" class="form-label"></label>
+  <input type="text" [(ngModel)]="filterText" class="form-control" id="filterText" placeholder="Araç ismi giriniz">
+</div>
+
+<div *ngIf="filterText" class="alert alert-primary">
+{{filterText}} aradınız.
+</div>
+<!-- <app-car-filter></app-car-filter> -->
+<div class="row" *ngIf="dataLoaded==true">
+<div  routerLink="/cars/car-detail/{{car.carId}}"  *ngFor="let car of cars |carfilterPipe:filterText" class="card" style="width: 20rem;">
+  <img src="{{imageBasePath}}{{car.imagePath}}" class="card-img-top" alt="{{car.description}} Image" width="auto" height="auto">
+    <div  class="card-body">
+      <h5 class="card-title">{{car.brandName |uppercase}}</h5>
+    </div >
+    <ul class="list-group list-group-flush">
+      <li class="list-group-item">Renk: {{car.colorName}}</li>
+      <li class="list-group-item">Model Yılı: {{car.modelYear}}</li>
+      <li class="list-group-item">Fiyat: {{car.dailyPrice |currency}}</li> 
+      <li class="list-group-item">Açıklama: {{car.description}}</li>
+    </ul>
+    <div class="card-body">
+      <section style="float:top">
+        <button routerLink="/cars/detail/{{car.carId}}" type="button" class="btn btn-primary">Detaylar</button>
+      </section>
+    </div>
+  </div>
+</div>
