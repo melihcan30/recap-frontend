@@ -1,21 +1,17 @@
-<div class="alert alert-info" role="alert">
-  <h2>Musteriler</h2> 
- </div>
-
-  <div *ngIf="dataLoaded==false"  class="spinner-border text-success" role="status">
-    <span class="visually-hidden">Loading...</span>
-  </div>
-<table *ngIf="dataLoaded==true" class="table">
+<div *ngIf="dataLoaded==false" class="spinner-border text-primary" role="status">
+  <span class="visually-hidden">Loading...</span>
+</div>
+<table *ngIf="dataLoaded==true" class="table table-bordered">
   <thead>
-    <tr>
-      <th>Müşteri Numarası</th>
-      <th>Müşteri</th>
-      <th>Şirket</th>
-    </tr>
+      <th>Id</th>
+      <th>User Id</th>
+      <th>Company Name</th>
   </thead>
-  <tr *ngFor="let customer of customers">
-    <td>{{customer.customerId}}</td>
-    <td>{{customer.firstName + " "+ customer.lastName}}</td>
-    <td>{{customer.companyName}}</td>
-  </tr>
+  <tbody>
+      <tr *ngFor="let customer of customers">
+          <td>{{customer.id}}</td>
+          <td>{{customer.userId}}</td>
+          <td>{{customer.companyName}}</td>
+      </tr>
+  </tbody>
 </table>
