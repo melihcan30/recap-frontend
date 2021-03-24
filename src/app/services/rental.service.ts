@@ -3,42 +3,45 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { ListResponseModel } from '../models/listResponseModel';
 import { Rental } from '../models/rental';
-import { RentalDto } from '../models/rentalDto';
-import { ResponseModel } from '../models/responseModel';
-
+import {environment} from '../../environments/environment';
+import {ResponseModel} from '../models/responseModel';
+import {FakeCreditCard} from '../models/fakeCreditCard';
+import {RentalDetail} from '../models/rentalDetail';
 
 @Injectable({
   providedIn: 'root'
 })
 export class RentalService {
-  apiUrl = 'https://localhost:44333/api/';
+  apiUrl = environment.apiUrl
+  constructor(private httpClient:HttpClient) { }
 
-  constructor(private httpClient: HttpClient) { }
-
-  getAllRentalDetail():Observable<ListResponseModel<RentalDto>> {
-    let newPath = this.apiUrl + "rentals/getallrentaldetails"
-    return this.httpClient
-      .get<ListResponseModel<RentalDto>>(this.apiUrl);
+  getRentals():Observable<ListResponseModel<Rental>>{
+    return this.httpClient.get<ListResponseModel<Rental>>(this.apiUrl+'rentals/details');
   }
 
-  getRentalsByCarId(carId:number):Observable<ListResponseModel<Rental>>{
-    let newPath = this.apiUrl + "rentals/getallbycarid?=" + carId
-    return this.httpClient
-    .get<ListResponseModel<Rental>>(newPath);
-  }
-  
-  addRental(rental:Rental){
-    let newPath = this.apiUrl + "rentals/add"
-    this.httpClient.post(newPath,rental).subscribe()
+  getRentalByCarId(id:number){
+    return this.httpClient.get<ListResponseModel<Rental>>(this.apiUrl+'rentals/detailsbycar?id='+id);
   }
 
-  getLastByCarId(carId:number):Observable<Rental>{
-    let newPath = this.apiUrl + "rentals/getlastbycarid?carId=" + carId
-    return this.httpClient.get<Rental>(newPath);
+  addRental(rental: RentalDetail, fakeCreditCard: FakeCreditCard): Observable<ResponseModel> {
+    return this.httpClient.post<ResponseModel>
+    (this.apiUrl + 'rentals/paymentadd',
+      {
+        rental:
+          {
+            'carId': rental.carId,
+            'customerId': rental.customerId,
+            'returnDate': rental.returnDate
+          },
+        fakeCreditCardModel:
+          {
+            'cardNumber': fakeCreditCard.cardNumber,
+            'cardHolderName': fakeCreditCard.cardHolderName,
+            'expirationYear': parseInt(fakeCreditCard.expirationYear.toString()),
+            'expirationMonth': parseInt(fakeCreditCard.expirationMonth.toString()),
+            'cvv': fakeCreditCard.cvv
+          }
+      });
   }
 
-  isRentable(rental:Rental):Observable<ResponseModel>{
-    let newPath = this.apiUrl + "rentals/isrentable"
-    return this.httpClient.post<ResponseModel>(newPath,rental);
-  }
 }
