@@ -3,7 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { BrandComponent } from './components/brand/brand.component';
 import { CarAddComponent } from './components/car-add/car-add.component';
 import { CarListComponent } from './components/car-list/car-list.component';
-import { CarUpdateComponent } from './components/car-update/car-update/car-update.component';
+import { CarUpdateComponent } from './components/car-update/car-update.component';
 import { CarDetailComponent } from './components/car/car-detail/car-detail.component';
 import { CarComponent } from './components/car/car.component';
 import { ColorComponent } from './components/color/color.component';

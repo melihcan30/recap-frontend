@@ -1,12 +1,13 @@
 import { Component, OnInit } from '@angular/core';
-import {FormBuilder, FormGroup, Validators} from '@angular/forms';
-import {ToastrService} from 'ngx-toastr';
-import {CarService} from '../../services/car.service';
-import {BrandService} from '../../services/brand.service';
-import {ColorService} from '../../services/color.service';
-import {ActivatedRoute} from '@angular/router';
-import {Color} from '../../models/color';
-import {Brand} from '../../models/brand';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { ActivatedRoute } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
+import { Brand } from 'src/app/models/brand';
+import { Car } from 'src/app/models/car';
+import { Color } from 'src/app/models/color';
+import { brandService } from 'src/app/services/brand.service';
+import { CarService } from 'src/app/services/car.service';
+import { ColorService } from 'src/app/services/color.service';
 
 @Component({
   selector: 'app-car-update',
@@ -14,68 +15,72 @@ import {Brand} from '../../models/brand';
   styleUrls: ['./car-update.component.css']
 })
 export class CarUpdateComponent implements OnInit {
-  carUpdateForm: FormGroup;
-  brands: Brand[] = [];
-  colors: Color[] = [];
-  carId: number;
 
-  constructor(private formBuilder: FormBuilder,
-              private carService: CarService,
-              private toastrService: ToastrService,
-              private brandService: BrandService,
-              private colorService: ColorService,
-              private activatedRoute: ActivatedRoute
-  ) {
-  }
+  brands : Brand[];
+  colors : Color[];
+  car : Car;
+  carUpdateForm : FormGroup;
+
+  constructor(
+    private formBuilder : FormBuilder,
+    private carService : CarService,
+    private colorService : ColorService,
+    private brandService : brandService,
+    private toastrService : ToastrService,
+    private activatedRoute : ActivatedRoute
+  ) { }
 
   ngOnInit(): void {
-    this.activatedRoute.params.subscribe(params => {
-      if (params['id']) {
-        this.carId = parseInt(params['id']);
-      }
-    });
     this.createCarUpdateForm();
-    this.brandList();
-    this.colorList();
+    this.getBrands();
+    this.getColors();
+    this.activatedRoute.params.subscribe(params =>{
+      if(params["carId"]){
+        this.getCarById(params["carId"])
+      }
+    })
   }
 
-  createCarUpdateForm() {
+  createCarUpdateForm(){
     this.carUpdateForm = this.formBuilder.group({
-      id: [this.carId],
-      brandId: ['', Validators.required],
-      colorId: ['', Validators.required],
-      modelYear: ['', Validators.required],
-      dailyPrice: ['', Validators.required],
-      description: ['', Validators.required]
-    });
+      description : ["",Validators.required],
+      colorId: ["",Validators.required],
+      brandId : ["",Validators.required],
+      modelName: ["",Validators.required],
+      modelYear : ["",Validators.required],
+      dailyPrice : ["",Validators.required]
+     
+     
+    })
+  }
+  getCarById(carId:number){
+    this.carService.getCarDetailsByCarId(carId).subscribe(response =>{
+     this.car = response.data[0];
+    })
   }
 
-  brandList() {
-    this.brandService.getBrands().subscribe(response => {
-      this.brands = response.data;
-    });
-  }
-
-  colorList() {
-    this.colorService.getColors().subscribe(response => {
-      this.colors = response.data;
-    });
-  }
-
-  updateCar() {
-    if (this.carUpdateForm.valid) {
-      let carModel = Object.assign({}, this.carUpdateForm.value);
-      this.carService.updateCar(carModel).subscribe(response => {
-        this.toastrService.success(response.message, 'Başarılı');
-      }, error => {
-        if (error.error.Errors.length > 0) {
-          for (let i = 0; i < error.error.Errors.length; i++) {
-            this.toastrService.error(error.error.Errors[i].ErrorMessage, 'Doğrulama hatası');
-          }
-        }
-      });
-    } else {
-      this.toastrService.error('Form Bilgileriniz Eksik!', 'Hata');
+  updateCar(){
+    if(this.carUpdateForm.valid){
+      let carModel = Object.assign({},this.carUpdateForm.value)
+      carModel.carId = this.car.carId
+      this.carService.update(carModel).subscribe(response =>{
+        this.toastrService.success("Başarılı Güncellendi")
+      },responseError =>{
+        this.toastrService.error("Hata")
+      })
+    }else{
+      this.toastrService.error("Form eksik","Hata")
     }
   }
+  getColors(){
+    this.colorService.getColors().subscribe(response=>{
+      this.colors = response.data;
+    })
+  }
+  getBrands(){
+    this.brandService.getCars().subscribe(response=>{
+      this.brands = response.data;
+    })
+  }
+
 }

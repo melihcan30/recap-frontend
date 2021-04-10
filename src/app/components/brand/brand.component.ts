@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Brand } from 'src/app/models/brand';
-import { BrandService } from 'src/app/services/brand.service';
-import {Filters} from '../../models/filters';
+import { brandService } from 'src/app/services/brand.service';
 
 @Component({
   selector: 'app-brand',
@@ -10,34 +9,51 @@ import {Filters} from '../../models/filters';
 })
 export class BrandComponent implements OnInit {
 
-  brands: Brand[] = [];
-  dataLoaded = false;
-  error = '';
-  currentBrand: Brand;
-  allBrand?: Brand;
-  Filters = {};
 
-  constructor(private brandService: BrandService) {
-  }
-
+  brand :Brand[] = [];
+  currentBrand : Brand;
+  emptyBrand:Brand;
+  constructor(private brandService:brandService) { }
+ 
   ngOnInit(): void {
     this.getBrands();
   }
 
-  getBrands() {
-    this.brandService.getBrands().subscribe(response => {
-      this.brands = response.data;
-      this.dataLoaded = true;
-    }, error => {
-      this.error = error.name;
-    });
+
+  getBrands(){
+    this.brandService.getCars().subscribe(response => {
+      this.brand = response.data
+     
+    } )
   }
-  setCurrentBrand() {
-    this.currentBrand !== undefined
-      ? (Filters.brandId = this.currentBrand.brandId.toString())
-      : (Filters.brandId = '');
+
+  setCurrentBrand(brand:Brand){
+
+    this.currentBrand = brand;
   }
-  allBrandSelected() {
-    return this.currentBrand === undefined ? true : false;
+
+  clearCurrentBrand() {
+    this.currentBrand = this.emptyBrand;
   }
+  
+
+  getCurrentBrandClass(brand:Brand){
+    if(brand == this.currentBrand){
+      return "list-group-item active"
+    }else{
+      return "list-group-item"
+    }
+   }
+
+
+   getAllBrandClass(){
+    if(!this.currentBrand){
+      return "list-group-item active"
+    }else{
+      return "list-group-item"
+    }
+   }
+
+
+
 }
