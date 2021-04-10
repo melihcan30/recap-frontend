@@ -1,4 +1,28 @@
-<app-navi></app-navi>
-<div class="container-fluid" style="margin-top: 15px;">
-    <router-outlet></router-outlet>
+<div style="background-color: #0f0f0fa9;">  
+
+    <div class=" ">   
+    
+        <div class="col-md-12" > 
+            <app-navi></app-navi>   
+    
+        </div>
+
+        <div class="row"> 
+           
+            <div class="col-md-2">
+                <app-brand></app-brand>
+                <app-color></app-color>
+            </div>
+    
+            <div class="col-md-10" >
+                
+                <router-outlet></router-outlet>
+            </div>
+
+            <div class="col-md-12"  >
+                
+             <app-footer></app-footer>
+            </div>
+        </div> 
+    </div>
 </div>

@@ -1,83 +1,81 @@
-import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { HttpClient, HttpClientModule, HTTP_INTERCEPTORS} from '@angular/common/http'
+import { FormsModule , ReactiveFormsModule } from "@angular/forms" 
+import { BrowserAnimationsModule} from "@angular/platform-browser/animations"
+
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+import { CarComponent } from './components/car/car.component';
 import { BrandComponent } from './components/brand/brand.component';
 import { ColorComponent } from './components/color/color.component';
-import { CustomerComponent } from './components/customer/customer.component';
-import { CarComponent } from './components/car/car.component';
-import { RentalComponent } from './components/rental/rental.component';
 import { NaviComponent } from './components/nav/nav.component';
-import { CarDetailComponent } from './components/car-detail/car-detail.component';
-
-import {FormsModule, ReactiveFormsModule} from '@angular/forms';
-import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-import { ToastrModule} from 'ngx-toastr';
+import { UserComponent } from './components/user/user.component';
+import { CustomerComponent } from './components/customer/customer.component';
+import { RentalComponent } from './components/rental/rental.component';
+import { CarimageComponent } from './components/carimage/carimage.component';
+import { VatAddedPipe } from './pipes/vat-added.pipe';
+import { from } from 'rxjs';
 import { FilterPipePipe } from './pipes/filter-pipe.pipe';
-import { CartComponent } from './components/cart/cart.component';
-import { PaymentComponent } from './components/payment/payment.component';
-import { FilterComponent } from './components/filter/filter.component';
-import { CarAddComponent } from './components/car-add/car-add.component';
-import { BrandAddComponent } from './components/brand-add/brand-add.component';
-import { ColorAddComponent } from './components/color-add/color-add.component';
-import { CarUpdateComponent } from './components/car-update/car-update.component';
-import { ColorUpdateComponent } from './components/color-update/color-update.component';
-import { BrandUpdateComponent } from './components/brand-update/brand-update.component';
-import { MainComponent } from './components/main/main.component';
+import { CarDetailComponent } from './components/car/car-detail/car-detail.component';
+import { VatWeekPipe } from './pipes/vat-week.pipe';
+import { VatMoonPipe } from './pipes/vat-moon.pipe';
+
+import {ToastrModule, ToastrService} from "ngx-toastr";
 import { FooterComponent } from './components/footer/footer.component';
+import { PaymentComponent } from './components/payment/payment.component';
+import { CarAddComponent } from './components/car-add/car-add.component';
+import { RentalAddComponent } from './components/rental-add/rental-add.component';
 import { LoginComponent } from './components/login/login.component';
-import { RegisterComponent } from './components/register/register.component';
-import {AuthInterceptor} from './interceptors/auth.interceptor';
-import { ProfileComponent } from './components/profile/profile.component';
-import {RouterModule} from '@angular/router';
+import { RegisterComponent } from './components/register/register.component'
+import { AuthInterceptor } from './interceptors/auth.interceptor';
+import { CarUpdateComponent } from './components/car-update/car-update.component';
+import { CarListComponent } from './components/car-list/car-list.component';
 
 
 @NgModule({
   declarations: [
     AppComponent,
+    CarComponent,
     BrandComponent,
     ColorComponent,
-    CustomerComponent,
-    CarComponent,
-    RentalComponent,
     NaviComponent,
-    CarDetailComponent,
+    UserComponent,
+    CustomerComponent,
+    RentalComponent,
+    CarimageComponent,
+    VatAddedPipe,
     FilterPipePipe,
-    CartComponent,
-    PaymentComponent,
-    FilterComponent,
-    CarAddComponent,
-    BrandAddComponent,
-    ColorAddComponent,
-    CarUpdateComponent,
-    ColorUpdateComponent,
-    BrandUpdateComponent,
-    MainComponent,
+    CarDetailComponent,
+    VatWeekPipe,
+    VatMoonPipe,
     FooterComponent,
+    PaymentComponent,
+    CarAddComponent,
+    RentalAddComponent,
     LoginComponent,
     RegisterComponent,
-    ProfileComponent,
+    CarUpdateComponent,
+    CarListComponent,
+
+
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule,
+    AppRoutingModule, 
     HttpClientModule,
-    NgbModule,
-    FontAwesomeModule,
     FormsModule,
-    ToastrModule.forRoot({
-      positionClass : "toast-bottom-right"
-    }),
     BrowserAnimationsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    ToastrModule.forRoot({
+      positionClass:"toast-top-right"
+    })
+
   ],
   providers: [
-    {provide:HTTP_INTERCEPTORS,useClass:AuthInterceptor,multi:true}
-    ],
+    {provide:HTTP_INTERCEPTORS, useClass:AuthInterceptor, multi:true}
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

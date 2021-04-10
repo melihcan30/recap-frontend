@@ -1,51 +1,47 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { CarDetailComponent } from './components/car-detail/car-detail.component';
+import { BrandComponent } from './components/brand/brand.component';
+import { CarAddComponent } from './components/car-add/car-add.component';
+import { CarListComponent } from './components/car-list/car-list.component';
+import { CarUpdateComponent } from './components/car-update/car-update/car-update.component';
+import { CarDetailComponent } from './components/car/car-detail/car-detail.component';
 import { CarComponent } from './components/car/car.component';
-import {CartComponent} from './components/cart/cart.component';
-import {PaymentComponent} from './components/payment/payment.component';
-import {CarAddComponent} from './components/car-add/car-add.component';
-import {BrandAddComponent} from './components/brand-add/brand-add.component';
-import {ColorAddComponent} from './components/color-add/color-add.component';
-import {ColorUpdateComponent} from './components/color-update/color-update.component';
-import {CarUpdateComponent} from './components/car-update/car-update.component';
-import {BrandUpdateComponent} from './components/brand-update/brand-update.component';
-import {LoginComponent} from './components/login/login.component';
-import {RegisterComponent} from './components/register/register.component';
-import {ProfileComponent} from './components/profile/profile.component';
-import {LoginGuard} from './guards/login.guard';
+import { ColorComponent } from './components/color/color.component';
+import { CustomerComponent } from './components/customer/customer.component';
+import { LoginComponent } from './components/login/login.component';
+import { PaymentComponent } from './components/payment/payment.component';
+import { RegisterComponent } from './components/register/register.component';
+import { RentalAddComponent } from './components/rental-add/rental-add.component';
+import { RentalComponent } from './components/rental/rental.component';
+import { LoginGuard } from './guards/login.guard';
 
 const routes: Routes = [
+
   {path:"",pathMatch:"full",component:CarComponent},
-
-  {path:"login",component:LoginComponent},
-  {path:"register",component:RegisterComponent},
-
   {path:"cars",component:CarComponent},
-  {path:"car/add",component:CarAddComponent},
-  {path:"car/update/:id",component:CarUpdateComponent,canActivate:[LoginGuard]},
   {path:"cars/brand/:brandId", component:CarComponent},
   {path:"cars/color/:colorId", component:CarComponent},
-  {path:"car/details/:carId", component: CarDetailComponent },
-  {path:'cars/brand/:brandId/color/:colorId', component: CarComponent },
+  {path:"cars/detail/:carId",component:CarDetailComponent},
+  {path:"rentals/:carId" ,component:RentalAddComponent},
+  {path:"payments/:carId" , component:PaymentComponent},
+  {path:"rentals/add" , component:RentalAddComponent},
+  {path:"cars/add" , component:CarAddComponent , canActivate:[LoginGuard]},
+  {path:"cars/update" , component:CarUpdateComponent, canActivate:[LoginGuard] },
+  {path:"cars/update/:carId" , component:CarUpdateComponent, canActivate:[LoginGuard]},
+  {path:"cars/list" , component:CarListComponent},
 
-  {path:"brand/add",component:BrandAddComponent,canActivate:[LoginGuard]},
-  {path:"brand/update/:id",component:BrandUpdateComponent,canActivate:[LoginGuard]},
-
-  {path:"color/add",component:ColorAddComponent,canActivate:[LoginGuard]},
-  {path:"color/update/:id",component:ColorUpdateComponent,canActivate:[LoginGuard]},
-
-  {path: "cart", component: CartComponent,canActivate:[LoginGuard] },
-  {path: 'payment/:myrental', component: PaymentComponent,canActivate:[LoginGuard]},
-
-  {path: 'profile', component: ProfileComponent,canActivate:[LoginGuard]},
-
-  {path:'***',redirectTo:''}
-
+  {path:"login" , component:LoginComponent},
+  {path:"register" , component:RegisterComponent},
+  {path:"payment" , component:PaymentComponent},
+  {path:"brands",component:BrandComponent},
+  {path:"colors",component:ColorComponent},
+  {path:"customers",component:CustomerComponent},
+  {path:"rentals",component:RentalComponent}
 ];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule]
 })
+
 export class AppRoutingModule { }
